@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mgmt-pg
+  namespace: default
+  labels:
+    app: mgmt-pg
+spec:
+  selector:
+    matchLabels:
+      app: mgmt-pg
+  template:
+    metadata:
+      labels:
+        app: mgmt-pg
+      annotations:
+        kubectl.kubernetes.io/default-container: app
+    spec:
+      containers:
+      - name: app
+        image: ghcr.io/binkhq/mgmt-pg:latest
+        command: ["tail", "-f", "/dev/null"]
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "100m"
+          limits:
+            memory: "2Gi"
+            cpu: "3000m"
